@@ -1,7 +1,20 @@
+import React, { useEffect } from "react";
+import { io } from "socket.io-client";
 import logo from './logo.svg';
 import './App.css';
 
 function App() {
+  useEffect(() => {
+    const socket = io("http://localhost:4000", {
+      withCredentials: true,
+      extraHeaders: {
+        "my-custom-header": "abcd"
+      }
+    });
+    socket.on("firstEvent", (msg) => {
+      console.log(msg);
+    });
+  }, [])
   return (
     <div className="App">
       <header className="App-header">
