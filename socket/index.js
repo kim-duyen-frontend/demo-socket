@@ -1,16 +1,23 @@
-import { Server } from "socket.io";
+const express = require("express");
+const cors = require("cors");
+require("dotenv").config()
 
-const io = new Server({
-    cors: {
-        origin: "http://localhost:3000",
-        allowedHeaders: ["my-custom-header"],
-        credentials: true
-    }
-});
+const app = express();
+app.use(cors({
+    origin: process.env.PUBLIC_URL,
+    methods: ['GET', 'POST', 'PUT', 'DELETE']
+}))
 
-io.on("connection", (socket) => {
-    // console.log(`connected socket: ",${socket.id}`);
-    io.emit("firstEvent","Hello World!");
-});
+//read data from client
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
 
-io.listen(4000);
+//api server
+app.use("/", (req, res) => {
+    return res.send("Turn on server")
+})
+
+const PORT = process.env.PORT || 4000;
+const listen = app.listen(PORT, () => {
+    console.log("Server is running on the port " + listen.address().port);
+})
