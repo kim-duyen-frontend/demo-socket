@@ -4,7 +4,7 @@
   "description": "backend nodejs",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon server.js"
+    "dev": "nodemon --exec babel-node server.js"
   },
   "keywords": [
     "nodejs",
@@ -22,6 +22,9 @@
     "socket.io": "^4.5.3"
   },
   "devDependencies": {
+    "@babel/core": "^7.19.3",
+    "@babel/node": "^7.19.1",
+    "@babel/preset-env": "^7.19.3",
     "sequelize-cli": "^6.5.2"
   }
 }
