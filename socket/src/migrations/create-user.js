@@ -19,7 +19,8 @@ module.exports = {
         type: Sequelize.STRING
       },
       roleID: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        defaultValue: "tous1"
       },
       createdAt: {
         allowNull: false,
