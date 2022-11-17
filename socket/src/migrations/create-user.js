@@ -18,10 +18,6 @@ module.exports = {
       password: {
         type: Sequelize.STRING
       },
-      roleID: {
-        type: Sequelize.STRING,
-        defaultValue: "tous1"
-      },
       createdAt: {
         allowNull: false,
         type: 'TIMESTAMP',
