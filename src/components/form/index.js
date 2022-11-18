@@ -1,17 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Form, Button, Card, Col } from 'react-bootstrap';
 import { Link, useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import ModalRegister from '../modal';
 import { loginUser } from '../../redux/apiRequest';
+import { ToastContainer, toast } from "react-toastify";
 
 function FormLogin() {
     const [show, setShow] = useState(false);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    let navigate = useNavigate();
+    const navigate = useNavigate();
     const dispatch = useDispatch();
-
+    const notify = useSelector((state) => state.auth.login.currentUser);
+    const auth = useSelector((state) => state.auth.login.auth);
+    // console.log(auth);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
     const handleLogin = (event) => {
@@ -20,9 +23,22 @@ function FormLogin() {
             email: email,
             password: password
         }
-        console.log(newUser);
-        loginUser(newUser, dispatch, navigate);
+        loginUser(newUser, dispatch);
     }
+    useEffect(() => {
+        if (auth === true) {
+            toast.success(notify?.message);
+        }
+    }, [auth])
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            if (notify) {
+                navigate("/home")
+            }
+        }, 12000);
+        return () => clearTimeout(timer);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [notify])
     return (
         <>
             <Card className="p-3">
@@ -55,6 +71,17 @@ function FormLogin() {
                 </Form>
             </Card>
             <ModalRegister show={show} handleClose={handleClose} />
+            <ToastContainer className="toast-position"
+                position="bottom-right"
+                autoClose={10000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+            />
         </>
     );
 }

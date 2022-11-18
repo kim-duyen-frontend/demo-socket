@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Container, Nav, Navbar } from "react-bootstrap";
+import { useSelector } from "react-redux";
 
 function NavbarHome() {
-    const [user, setUSer] = useState("duyenkim@gmail.com");
+    const user = useSelector((state) => state.auth.login.currentUser);
     return (
         <Navbar collapseOnSelect expand="lg" bg="light" variant="light">
             <Container>
@@ -15,7 +16,7 @@ function NavbarHome() {
                     <Nav className="ms-auto">
                         {user ? (
                             <>
-                                <Nav.Link href="#">Hi,{user}  </Nav.Link>
+                                <Nav.Link href="#">Hi,{user.user_info}</Nav.Link>
                                 <div className="vr" />
                                 <Nav.Link href="#">Log out</Nav.Link>
                             </>

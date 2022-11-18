@@ -1,12 +1,11 @@
 import axios from "axios";
 import { loginError, loginRequest, loginSuccessfull, registerError, registerRequest, registerSuccess } from "./authSlice";
 
-export const loginUser = async (user, dispatch, navigate) => {
+export const loginUser = async (user, dispatch) => {
     dispatch(loginRequest());
     try {
         const response = await axios.post("http://localhost:5000/api/auth/login", user);
         dispatch(loginSuccessfull(response.data));
-        navigate("/home");
     } catch (error) {
         dispatch(loginError());
     }

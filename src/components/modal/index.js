@@ -18,7 +18,6 @@ function ModalRegister({ show, handleClose }) {
             email: email,
             password: password
         }
-        console.log(newUser);
         registerUser(newUser, dispatch, navigate);
     }
     return (

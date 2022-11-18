@@ -4,7 +4,8 @@ const initialState = {
     login: {
         currentUser: null,
         isLoading: false,
-        error: false
+        error: false,
+        auth: false,
     },
     register: {
         isLoading: false,
@@ -18,15 +19,18 @@ const authSlice = createSlice({
     reducers: {
         loginRequest: (state) => {
             state.login.isLoading = true;
+            state.login.auth = false;
         },
         loginSuccessfull: (state, action) => {
             state.login.isLoading = false;
             state.login.currentUser = action.payload;
             state.login.error = false;
+            state.login.auth = true;
         },
         loginError: (state) => {
             state.login.isLoading = false;
             state.login.error = true;
+            state.login.auth = false;
         },
         registerRequest: (state) => {
             state.register.isLoading = true;
