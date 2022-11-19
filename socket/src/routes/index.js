@@ -1,9 +1,9 @@
-import auth from "./auth";
-
+import user from './user'
+import auth from './auth'
 const initRoutes = (app) => {
-    app.use("/api/auth", auth);
-    return app.use("/", (req, res) => {
-        return res.send("Turn on server")
-    })
+    app.use('/api/user', user)
+    app.use('/api/auth', auth)
+    
 }
-module.exports = initRoutes;
+
+module.exports = initRoutes

@@ -29,6 +29,7 @@ function FormLogin() {
         if (auth === true) {
             toast.success(notify?.message);
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [auth])
     useEffect(() => {
         const timer = setTimeout(() => {
@@ -39,6 +40,7 @@ function FormLogin() {
         return () => clearTimeout(timer);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [notify])
+
     return (
         <>
             <Card className="p-3">

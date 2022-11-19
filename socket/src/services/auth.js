@@ -22,7 +22,7 @@ export const register = ({ username, email, password }) => new Promise(async (re
         // console.log(response[0].email);
         // console.log(response[0].roleID);
         //Create token
-        const token = response[1] ? jwt.sign({ id: response[0].id, email: response[0].email, roleID: response[0].roleID }, process.env.TOKEN_SECRET, { expiresIn: "30" }) : null;
+        const token = response[1] ? jwt.sign({ id: response[0].id, email: response[0].email }, process.env.TOKEN_SECRET, { expiresIn: "30s" }) : null;
         resolve({
             err: response[1] ? 0 : 1,
             message: response[1] ? "Register successfully" : "Email has already existed",
@@ -40,7 +40,7 @@ export const login = ({ email, password }) => new Promise(async (resolve, reject
             raw: true
         });
         const isExist = response && bcrypt.compareSync(password, response.password);
-        const token = isExist ? jwt.sign({ id: response.id, email: response.email, roleID: response.roleID }, process.env.TOKEN_SECRET, { expiresIn: "30" }) : null;
+        const token = isExist ? jwt.sign({ id: response.id, email: response.email }, process.env.TOKEN_SECRET, { expiresIn: "30s" }) : null;
 
         resolve({
             err: response ? 0 : 1,
