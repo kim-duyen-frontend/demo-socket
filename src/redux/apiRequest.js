@@ -1,5 +1,6 @@
 import axios from "axios";
 import { loginError, loginRequest, loginSuccessfull, registerError, registerRequest, registerSuccess } from "./authSlice";
+import { getUserError, getUserRequest, getUserSuccessfull } from "./userSlice";
 
 export const loginUser = async (user, dispatch) => {
     dispatch(loginRequest());
@@ -18,5 +19,17 @@ export const registerUser = async (user, dispatch, navigate) => {
         navigate("/");
     } catch (error) {
         dispatch(registerError());
+    }
+}
+
+export const getUserLogin = async (accessToken, dispatch) => {
+    dispatch(getUserRequest());
+    try {
+        const response = await axios.get("http://localhost:5000/api/user", {
+            headers: { token: `${accessToken}` }
+        });
+        dispatch(getUserSuccessfull(response.data));
+    } catch (error) {
+        dispatch(getUserError());
     }
 }
