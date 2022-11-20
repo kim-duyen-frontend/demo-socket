@@ -1,8 +1,8 @@
 import * as services from "../services"
 
 export const getCurrent = async (req, res) => {
+    const { id } = req.user;
     try {
-        const { id } = req.user;
         const response = await services.getOne(id)
         return res.status(200).json(response)
 

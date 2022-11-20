@@ -22,11 +22,11 @@ export const register = ({ username, email, password }) => new Promise(async (re
         // console.log(response[0].email);
         // console.log(response[0].roleID);
         //Create token
-        const token = response[1] ? jwt.sign({ id: response[0].id, email: response[0].email }, process.env.TOKEN_SECRET, { expiresIn: "30s" }) : null;
+        const token = response[1] && jwt.sign({ id: response[0].id, email: response[0].email }, process.env.TOKEN_SECRET, { expiresIn: "2d" });
         resolve({
-            err: response[1] ? 0 : 1,
-            message: response[1] ? "Register successfully" : "Email has already existed",
-            access_token: `Bearer ${token}`
+            err: token ? 0 : 1,
+            message: token ? "Register successfully" : "Email has already existed",
+            token: token || null
         });
     } catch (error) {
         reject(error)
@@ -40,12 +40,12 @@ export const login = ({ email, password }) => new Promise(async (resolve, reject
             raw: true
         });
         const isExist = response && bcrypt.compareSync(password, response.password);
-        const token = isExist ? jwt.sign({ id: response.id, email: response.email }, process.env.TOKEN_SECRET, { expiresIn: "30s" }) : null;
+        const token = isExist && jwt.sign({ id: response.id, email: response.email }, process.env.TOKEN_SECRET, { expiresIn: "2d" });
 
         resolve({
-            err: response ? 0 : 1,
+            err: token ? 0 : 1,
             message: token ? "Login Successfully" : response ? "Password is wrong" : "You don't sign up account",
-            access_token: token ? `Bearer ${token}` : null,
+            access_token: token || null,
             user_info: email
         })
     } catch (error) {

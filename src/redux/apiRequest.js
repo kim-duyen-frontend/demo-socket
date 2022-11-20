@@ -7,6 +7,7 @@ export const loginUser = async (user, dispatch) => {
     try {
         const response = await axios.post("http://localhost:5000/api/auth/login", user);
         dispatch(loginSuccessfull(response.data));
+        // console.log("check data 1: ", response);
     } catch (error) {
         dispatch(loginError());
     }
@@ -26,8 +27,9 @@ export const getUserLogin = async (accessToken, dispatch) => {
     dispatch(getUserRequest());
     try {
         const response = await axios.get("http://localhost:5000/api/user", {
-            headers: { token: `${accessToken}` }
+            headers: { authorization: `Bearer ${accessToken}` }
         });
+        // console.log("check data 2: ", response.data);
         dispatch(getUserSuccessfull(response.data));
     } catch (error) {
         dispatch(getUserError());
