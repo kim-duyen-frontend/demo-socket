@@ -45,8 +45,7 @@ export const login = ({ email, password }) => new Promise(async (resolve, reject
         resolve({
             err: token ? 0 : 1,
             message: token ? "Login Successfully" : response ? "Password is wrong" : "You don't sign up account",
-            access_token: token || null,
-            user_info: email
+            access_token: token || null
         })
     } catch (error) {
         reject(error);

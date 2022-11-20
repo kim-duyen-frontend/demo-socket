@@ -3,7 +3,8 @@ import { Container, Nav, Navbar } from "react-bootstrap";
 import { useSelector } from "react-redux";
 
 function NavbarHome() {
-    const user = useSelector((state) => state.auth.login.currentUser);
+    const user = useSelector((state) => state.userLogging.user.userLogin);
+    // console.log(user.userData.username);
     return (
         <Navbar collapseOnSelect expand="lg" bg="light" variant="light">
             <Container>
@@ -16,7 +17,7 @@ function NavbarHome() {
                     <Nav className="ms-auto">
                         {user ? (
                             <>
-                                <Nav.Link href="#">Hi,{user.user_info}</Nav.Link>
+                                <Nav.Link href="#">Hi, {user.userData.username}</Nav.Link>
                                 <div className="vr" />
                                 <Nav.Link href="#">Log out</Nav.Link>
                             </>
